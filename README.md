@@ -13,18 +13,6 @@ The site includes:
 - Supporting models, code, and data
 - CV and background information
 
-## Current research
-
-### ITC Limited — Equity Research & Valuation
-Independent equity research combining:
-
-- DCF valuation
-- Sum-of-the-parts valuation
-- Relative valuation
-- Exploratory econometric analysis
-
-Supporting files include the report, Excel model, R code, and dataset.
-
 ## Built with
 
 - HTML
