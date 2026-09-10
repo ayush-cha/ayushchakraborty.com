@@ -1,47 +1,27 @@
-# Ayush Chakraborty — Economics & Finance Portfolio
+# Ayush Chakraborty — Portfolio V1
 
-Personal research and portfolio website for Ayush Chakraborty, an Economics undergraduate at Durham University.
+A deliberately simple static portfolio for research and writing.
 
-The site showcases independent work across equity research, financial modelling, valuation, economics and quantitative analysis.
+## Pages
+- `index.html` — homepage
+- `research.html` — research index
+- `writing.html` — writing index
+- `about.html` — biography and CV
+- `research/itc.html` — current ITC research project
 
-## Featured Research
+## Adding a research project
+1. Copy `_templates/research-template.html` into `research/` and rename it, e.g. `research/company-name.html`.
+2. Edit the title, date, description and body.
+3. Put any report/model/code files in `downloads/`.
+4. Add a new row to the list in `research.html`.
+5. Commit and push to GitHub. Cloudflare Pages will redeploy automatically.
 
-### ITC Limited — Independent Equity Research & Valuation
+## Adding writing
+1. Create a `writing/` directory if it does not exist.
+2. Copy `_templates/writing-template.html` into it and rename the file.
+3. Write the article.
+4. Replace the empty-state block in `writing.html` with a `.list` and `.list-item` entry, following the research page as a pattern.
+5. Commit and push.
 
-An end-to-end equity research project covering:
-
-- Five-year segment-level financial forecasting
-- Discounted Cash Flow (DCF) valuation
-- Sum-of-the-Parts (SOTP) valuation
-- Trading comparables
-- FCFE and dividend analysis
-- DCF sensitivity analysis
-- Quantitative regression analysis using R
-- Investment thesis and risk analysis
-
-The base-case analysis produces a blended target price of ₹372 per share against a ₹263.50 reference price as of 9 September 2026.
-
-## Other Work
-
-The portfolio also includes:
-
-- Economics and markets writing
-- Quantitative analysis and econometrics
-- Financial modelling projects
-- Software and data projects
-
-## Tools
-
-Excel · R · Python · SQL · Financial Modelling · Econometrics
-
-## Website
-
-ayushchakraborty.com
-
-## LinkedIn
-
-https://www.linkedin.com/in/ayushchakr/
-
----
-
-Independent student research for educational and portfolio purposes only. Nothing on this website constitutes investment advice.
+## Design
+The site intentionally uses plain HTML, CSS and a few lines of JavaScript. There is no build step or framework.
