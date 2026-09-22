@@ -1,35 +1,35 @@
-# ITC Limited — Macro Regression FINAL
-# Embedded-data reproducible specification.
-# The ChatGPT execution runtime does not include an R interpreter; the coefficients
-# below were independently computed using equivalent OLS + HC1 robust covariance.
-# Running this script in R/RStudio reproduces the regression from the CSV.
+# ITC Limited - corrected exploratory macro regression
+# Sample: 64 supplied monthly return observations, May 2021-August 2026.
+# September 2026 is excluded because the original report was dated 9 September 2026.
+# RBI policy-rate change months were corrected against RBI publications.
+# The supplied ITC/NIFTY returns are reproduced but underlying price observations
+# and adjustment factors were not available for independent certification.
 
-library(tidyverse)
+library(readr)
 library(lmtest)
 library(sandwich)
 
 df <- read_csv("ITC_R_Regression_Data.csv", show_col_types = FALSE)
 
 model <- lm(ITC_Return ~ Repo_Change + NIFTY_Return, data = df)
+
+# HC1 robust covariance. df = Inf aligns p-values to the normal approximation
+# used in the corrected workbook.
+robust <- coeftest(model, vcov. = vcovHC(model, type = "HC1"), df = Inf)
+
 print(summary(model))
-print(coeftest(model, vcov = vcovHC(model, type = "HC1")))
+print(robust)
 
-scenarios <- tibble(
-  Repo_Change = c(-1, 0, 1),
-  NIFTY_Return = c(0, 0, 0),
-  Scenario = c("100 bps cut", "No change", "100 bps hike")
-)
-scenarios$Predicted_ITC_Return <- predict(model, newdata=scenarios)
-print(scenarios)
+# Reference outputs from the corrected dataset:
+# N = 64
+# R-squared = 0.368175
+# Intercept = -0.000649
+# Repo_Change = 0.112253
+# NIFTY_Return = 0.951274
+# HC1 robust SEs = 0.006457, 0.026771, 0.146506
+# Normal-approx p-values = 0.919946, 0.00002753, 8.41e-11
 
-png("ITC_regression_diagnostics.png", width=1400, height=1000)
-par(mfrow=c(2,2))
+png("ITC_regression_diagnostics.png", width = 1400, height = 1000)
+par(mfrow = c(2, 2))
 plot(model)
 dev.off()
-
-# Reference results:
-# N = 65
-# R-squared = 0.3564
-# Intercept = 0.000191
-# Repo_Change = 0.107013
-# NIFTY_Return = 0.939268
